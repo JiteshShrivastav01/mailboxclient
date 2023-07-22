@@ -1,30 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import classes from './Navbar.module.css'
 import {Link,NavLink} from 'react-router-dom'
+import AuthContext from '../../Context/AuthContext';
+import {useHistory} from 'react-router-dom'
 
 const MainNavbar = () => {
+  const ctx=useContext(AuthContext)
+  const history=useHistory()
+
+  const logoutHandler=()=>{
+    ctx.logout()
+    history.push('/')
+  }
+
   return (
-    <Navbar bg="light" expand="md" className={classes.Navbar}>
+    <Navbar  expand="md" className={classes.Navbar}>
       <Navbar.Brand href="#home" className={classes.logo}>MailBox Client</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className={classes.list}>
         <Nav className={`mr-auto ${classes.list1}`} >
-          <Nav.Link className={classes.list1item}><NavLink to='/'>Home</NavLink></Nav.Link>
-          <Nav.Link className={classes.list1item}><NavLink to='/'>About</NavLink></Nav.Link>
+          {
+            !ctx.isLoggedIn &&
+            <Nav.Link className={classes.list1item}><NavLink to='/'>Home</NavLink></Nav.Link>
+          }
+          {
+            ctx.isLoggedIn &&
+            <Nav.Link className={classes.list1item}><NavLink to='/gmail'>Gmail</NavLink></Nav.Link>
+          }
         </Nav>
-        <Nav className={classes.list2}>
+        {
+          ctx.isLoggedIn && 
+          <Nav className={classes.list2}>
           <NavDropdown title="User Profile" id="basic-nav-dropdown"  className={classes.list2item}>
-            <NavDropdown.Item className={classes.list2dropitem}>Profile</NavDropdown.Item>
+              <NavDropdown.Item className={classes.list2dropitem}>{ctx.email}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item className={classes.list2dropitem}> 
-                <Link to='/login'>Login</Link>
-            </NavDropdown.Item>
+            <Link to='/' onClick={logoutHandler}>
             <NavDropdown.Item className={classes.list2dropitem}>
-                <Link to='/'>Logout</Link>
+                Logout
             </NavDropdown.Item>
+            </Link>
           </NavDropdown>
         </Nav>
+        }
       </Navbar.Collapse>
     </Navbar>
   );

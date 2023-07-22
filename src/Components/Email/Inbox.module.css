@@ -1,0 +1,11 @@
+.p{
+    display: flex;
+    gap: 5rem;
+}
+
+.bold{
+    font-weight: bold;
+}
+.h2{
+    color : white;text-align: center;
+}

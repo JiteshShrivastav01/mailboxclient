@@ -1,0 +1,32 @@
+.email-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .email {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 1.2rem;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .email-writing {
+    height: 200px;
+    overflow: hidden;
+    white-space: pre-wrap;
+  }
+  
+  /* Typing animation */
+  @keyframes typing {
+    from { width: 0; }
+  }
+  
+  .email-writing::after {
+    content: "|";
+    animation: typing 1s steps(1) infinite alternate;
+  }
+  

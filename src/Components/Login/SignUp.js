@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form} from 'react-bootstrap';
 import classes from './SignUp.module.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
@@ -50,7 +50,7 @@ const Signup = () => {
       const data = await response.json();
       console.log('SignUp Successfully');
       console.log(data)
-      history.push('/')
+      history.push('/gmail')
   
       email.current.value = '';
       password.current.value = '';
@@ -103,9 +103,9 @@ const Signup = () => {
           {passError && <small className={classes.passError}>Password not matched.</small>}
         </Form.Group>
 
-        <Button variant="primary" type="submit" className={classes.btnPrimary}>
+        <button  type="submit" className={classes.btnPrimary}>
           Create Account
-        </Button>
+        </button>
       </Form>
     </Container>
     </div>

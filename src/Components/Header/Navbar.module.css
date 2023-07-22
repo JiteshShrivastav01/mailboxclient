@@ -1,6 +1,7 @@
 .Navbar{
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 30% 70%;
+    background-color: #ffcc99;
 }
 
 .logo{
@@ -26,13 +27,12 @@
     margin-right: 5rem;
 }
 
-
-.list2dropitem a{
+.list2item a{
     text-decoration: none;
     color: black;
 }
 
-.list2dropitem a:hover{
+.list2item a:hover{
     text-decoration: underline;
     color: black;
 }

@@ -1,0 +1,60 @@
+.home {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.home p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  transition: color 0.3s ease;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.divider {
+  margin: 0 10px;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 12px 20px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+@media (max-width: 576px) {
+  .btn {
+    width: 100%;
+  }
+}
+
+
+

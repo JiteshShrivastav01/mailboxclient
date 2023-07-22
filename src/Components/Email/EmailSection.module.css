@@ -1,0 +1,32 @@
+.container{
+    max-width:400px;
+    border: none;
+    margin-left: 1rem auto;
+    padding: 2rem;
+    background-color: rgb(230, 243, 243);
+    /* border-bottom-right-radius: 2rem;
+    border-top-left-radius: 2rem; */
+}
+
+.form {
+    padding: 20px;
+}
+.h2{text-align: center;}
+
+
+.label{margin-top: 1rem;font-weight: 550;font-size: 1rem;}
+.input{
+    max-width: 400px; ;
+    padding: 5px 10px;
+} 
+
+.btnPrimary {
+    background-color: #fca311;
+    border-color: #fca311;
+    margin: 1rem auto;
+}
+  
+.btnPrimary:hover {
+    background-color: #e85d04;
+    border-color: #e85d04;
+}

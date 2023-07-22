@@ -9,8 +9,8 @@
 
 .container {
     width: 300px;
-    background-color: grey;border-radius: 1rem;
-    margin: 5rem auto;
+    background-color:#ffcc99;border-radius: 1rem;
+    margin: 5rem auto;color: #333333;
   }
   
   .form {
@@ -18,14 +18,15 @@
   }
   .h2{text-align: center;}
   
-  .label{margin-top: 1.5rem;font-weight: 550;font-size: 1.2rem;}
+  .label{margin-top:2rem;font-weight: 550;font-size: 1.2rem;}
 
-  .input{max-width: 400px;}
+  .input{max-width: 400px;box-sizing: border-box;box-shadow: none;}
 
   .btnPrimary {
     background-color: #fca311;
     border-color: #fca311;
-    margin: 1rem auto;
+    margin: 1rem auto;border: none;border-radius: 5px;margin-top: 1.5rem;
+    max-width: 10rem;padding: 0.4rem 1rem;
   }
   
   .btnPrimary:hover {

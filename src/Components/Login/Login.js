@@ -1,14 +1,15 @@
-import React, { useRef } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { useContext, useRef } from 'react';
+import { Container, Form} from 'react-bootstrap';
 import classes from './SignUp.module.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-
+import AuthContext from '../../Context/AuthContext';
 
 
 const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const history=useHistory()
+  const ctx=useContext(AuthContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,9 +37,10 @@ const Login = () => {
         throw new Error('Authentication Error');
       }
       const data = await response.json();
+      ctx.login(data.idToken , data.email)
       console.log('Login Successfully');
       console.log(data)
-      history.push('/')
+      history.push('/gmail')
   
       email.current.value = '';
       password.current.value = '';
@@ -78,9 +80,9 @@ const Login = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className={classes.btnPrimary}>
+        <button type="submit" className={classes.btnPrimary}>
           Login
-        </Button>
+        </button>
       </Form>
       <hr />
     </Container>

@@ -9,6 +9,17 @@ const Sent=(props)=>{
     const ctx=useContext(AuthContext)
     const Email=ctx.email.replace(/[@.]/g,'')
 
+    const deleteHandler=async (item)=>{
+      try{
+        const res=await fetch(`https://mailboxclient-5c2d5-default-rtdb.firebaseio.com/user/${Email}/sent/${item.id}.json`,{
+          method:'DELETE'
+        })
+      }
+      catch(err){
+        alert(err)
+      }
+    }
+
     useEffect(()=>{
         const fetchInbox=async ()=>{
           try{
@@ -22,6 +33,7 @@ const Sent=(props)=>{
             const loader=[]
             for(let key in data){
                 loader.push({
+                    id:key,
                     To : data[key].To,
                     Subject : data[key].Subject,
                     Message : data[key].message
@@ -38,7 +50,7 @@ const Sent=(props)=>{
     
       useEffect(()=>{
         props.sentlength(sent.length)
-    },[sent])
+    },[sent,deleteHandler])
 
     return(
        <Card1>
@@ -46,7 +58,7 @@ const Sent=(props)=>{
             !sent.length && <h2 className={classes.h2}>You have not sent any message yet.</h2>
           }
           {
-            sent.length && <h2 className={classes.h2}>Sent Message</h2>
+            sent.length>0 && <h2 className={classes.h2}>Sent Message</h2>
           }
           { 
             sent.map((sent)=>(
@@ -58,6 +70,7 @@ const Sent=(props)=>{
                     <p className={classes.p2}>
                         <span className={classes.bold}>Subject : </span>{sent.Subject}
                     </p>
+                    <button className={classes.delete} onClick={()=>deleteHandler(sent)}>X</button>
                   </div> 
                   <hr />
                   <p className={classes.p3}>{sent.Message}</p>

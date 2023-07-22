@@ -1,36 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import classes from './SignUp.module.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 
 
-const Signup = () => {
+const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
-  const confirmPassword = useRef(null);
-  const [passError , setPassError]=useState(false)
   const history=useHistory()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const Email = email.current.value;
     const Password = password.current.value;
-    const ConfirmPassword = confirmPassword.current.value;
   
-    if (Password !== ConfirmPassword) {
-      setPassError(true);
-      password.current.value = '';
-      confirmPassword.current.value = '';
-      setTimeout(() => {
-        setPassError(false);
-      }, 3000);
-      return;
-    }
   
     try {
       const response = await fetch(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBWUOLhQox3z3-V_vo9NCXn2NxcqWJj5WU',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBWUOLhQox3z3-V_vo9NCXn2NxcqWJj5WU',
         {
           method: 'POST',
           body: JSON.stringify({
@@ -48,18 +36,16 @@ const Signup = () => {
         throw new Error('Authentication Error');
       }
       const data = await response.json();
-      console.log('SignUp Successfully');
+      console.log('Login Successfully');
       console.log(data)
       history.push('/')
   
       email.current.value = '';
       password.current.value = '';
-      confirmPassword.current.value = '';
     } catch (error) {
       alert(error.message);
       email.current.value = '';
       password.current.value = '';
-      confirmPassword.current.value = '';
     }
   };
   
@@ -71,7 +57,7 @@ const Signup = () => {
     >
        
       <Form onSubmit={handleSubmit} className={`${classes.form} w-100 p-4`}>
-      <h2 className={classes.h2}>Create Account</h2>
+      <h2 className={classes.h2}>Login</h2>
         <Form.Group controlId="formBasicEmail">
           <Form.Label  className={classes.label}>Email</Form.Label>
           <Form.Control className={classes.input}
@@ -92,24 +78,14 @@ const Signup = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formBasicConfirmPassword">
-          <Form.Label className={classes.label}>Confirm Password</Form.Label>
-          <Form.Control className={classes.input}
-            type="password"
-            placeholder="Confirm Password"
-            ref={confirmPassword}
-            required
-          />
-          {passError && <small className={classes.passError}>Password not matched.</small>}
-        </Form.Group>
-
         <Button variant="primary" type="submit" className={classes.btnPrimary}>
-          Create Account
+          Login
         </Button>
       </Form>
+      <hr />
     </Container>
     </div>
   );
 };
 
-export default Signup;
+export default Login;

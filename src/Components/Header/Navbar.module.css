@@ -1,0 +1,38 @@
+.Navbar{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.logo{
+    margin-left: 2rem;
+}
+
+.list{
+    justify-content: space-between
+}
+.list1item{
+    margin-left: 2rem;
+}
+.list1 a{
+    text-decoration: none;
+    color: black;opacity: 0.8;
+}
+.list1 a:hover{
+    opacity: 1;
+}
+
+
+.list2{
+    margin-right: 5rem;
+}
+
+
+.list2dropitem a{
+    text-decoration: none;
+    color: black;
+}
+
+.list2dropitem a:hover{
+    text-decoration: underline;
+    color: black;
+}

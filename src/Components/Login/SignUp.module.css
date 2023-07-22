@@ -1,0 +1,35 @@
+.mainDiv{
+  max-width: 500px;
+  margin: 5rem auto;
+}
+
+.passError{
+  color:red
+}
+
+.container {
+    width: 300px;
+    background-color: grey;border-radius: 1rem;
+    margin: 5rem auto;
+  }
+  
+  .form {
+    padding: 20px;
+  }
+  .h2{text-align: center;}
+  
+  .label{margin-top: 1.5rem;font-weight: 550;font-size: 1.2rem;}
+
+  .input{max-width: 400px;}
+
+  .btnPrimary {
+    background-color: #fca311;
+    border-color: #fca311;
+    margin: 1rem auto;
+  }
+  
+  .btnPrimary:hover {
+    background-color: #e85d04;
+    border-color: #e85d04;
+  }
+  

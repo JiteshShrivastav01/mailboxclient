@@ -53,6 +53,7 @@ const Sent=(props)=>{
 
             const data=await res.json()
             const loader=[]
+            let count=0
             for(let key in data){
                 loader.push({
                     id:key,
@@ -61,8 +62,12 @@ const Sent=(props)=>{
                     Message : data[key].Message,
                     isRead : data[key].isRead
                 })
+                if(!data[key].isRead){
+                  count++
+                }
             }
             setSent(loader)
+            ctx.unreadSentMsg(count)
           }
           catch(err){
               alert(err)

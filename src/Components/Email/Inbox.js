@@ -54,6 +54,7 @@ const Inbox=(props)=>{
 
             const data=await res.json()
             const loader=[]
+            let count=0
             for(let key in data){
                 loader.push({
                     id:key,
@@ -62,15 +63,19 @@ const Inbox=(props)=>{
                     Message : data[key].Message,
                     isRead:data[key].isRead
                 })
+                if(!data[key].isRead){
+                  count++
+                }
             }
             setInbox(loader)
+            ctx.unreadInboxMsg(count)
           }
           catch(err){
               alert(err)
           }
         }
         fetchInbox()
-      },[Email,deleteHandler])
+      },[Email,deleteHandler,readHandler])
     
     useEffect(()=>{
         props.inboxlength(inbox.length)

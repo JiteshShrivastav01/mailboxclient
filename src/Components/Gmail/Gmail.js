@@ -9,8 +9,8 @@ import {MdOutlineUnfoldMore} from 'react-icons/md'
 import Starred from '../Email/Starred'
 import Inbox from "../Email/Inbox"
 import Sent from '../Email/Sent'
-
-
+import AuthContext from "../../Context/AuthContext"
+import { useContext } from "react"
 
 
 const Gmail=()=>{
@@ -20,6 +20,7 @@ const Gmail=()=>{
     const [isStarred,setIsStarred]=useState(false)
     const [inboxlen,setInboxLength]=useState(0)
     const [sentlen,setSentLength]=useState(0)
+    const ctx=useContext(AuthContext)
 
     const createEmailHandler=()=>{
         setIsEmail(!isEmail)
@@ -57,7 +58,8 @@ const Gmail=()=>{
             <div className={classes.list}>
                 <button className={classes.listitem} onClick={InboxHandler}>
                   <RiInboxUnarchiveFill className={classes.icon2}/> Inbox
-                  <span className={classes.number}>{inboxlen}</span>
+                  <span className={classes.number}>
+                    <span style={{color:'green',fontWeight:'bold'}}>{ctx.unreadInbox}</span>/{inboxlen}</span>
                 </button>
                 <button className={classes.listitem} onClick={starredHandler}>
                    <AiOutlineStar className={classes.icon2}/> Starred
@@ -65,7 +67,8 @@ const Gmail=()=>{
                 </button>
                 <button className={classes.listitem} onClick={sentHandler}>
                    <AiOutlineSend className={classes.icon2}/> Sent
-                   <span className={classes.number}>{sentlen}</span>
+                   <span className={classes.number}>
+                    <span style={{color:'green',fontWeight:'bold'}}>{ctx.unreadSent}</span>/{sentlen}</span>
                 </button>
                 <hr />
                 <button className={classes.morebtn}>

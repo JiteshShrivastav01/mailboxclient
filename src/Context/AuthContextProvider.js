@@ -8,10 +8,9 @@ const AuthContextProvider=(props)=>{
     const [Token,setToken]=useState(initialToken)
     const [email,setEmail]=useState(initialEmail)
     const isLoggedIn=!!Token
+    const [inboxUnread , setInboxUnread]=useState(0)
+    const [sentUnread , setSentUnread]=useState(0)
 
-    const [inbox , setInbox]=useState([])
-    const [sent , setSent]=useState([])
-    const [starred , setStarred]=useState([])
 
     const loginHandler=(token,email)=>{
        setToken(token)
@@ -27,15 +26,8 @@ const AuthContextProvider=(props)=>{
         localStorage.removeItem('email')
     }
 
-    const inboxHandler=(msg)=>{
-        setInbox([...inbox,msg])
-    }
-    const sentHandler=(msg)=>{
-        setSent([...inbox,msg])
-    }
-    const starredHandler=(msg)=>{
-        setStarred([...inbox,msg])
-    }
+    const inboxUnreadHandler=(amt)=>{setInboxUnread(amt)}
+    const sentUnreadHandler=(amt)=>{setSentUnread(amt)}
 
     const value={
       token : Token,
@@ -43,12 +35,10 @@ const AuthContextProvider=(props)=>{
       isLoggedIn : isLoggedIn,
       login : loginHandler ,
       logout : logoutHandler,
-      inbox : inbox,
-      inInbox : inboxHandler ,
-      sent : sent,
-      inSent : sentHandler ,
-      starred : starred ,
-      inStarred : starredHandler
+      unreadInbox : inboxUnread,
+      unreadInboxMsg : inboxUnreadHandler,
+      unreadSent : sentUnread,
+      unreadSentMsg : sentUnreadHandler,
     }
 
     return(

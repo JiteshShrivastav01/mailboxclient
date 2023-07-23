@@ -13,8 +13,9 @@
 
 .delete{
     width: 2rem;
-    background-color: red;opacity: 0.7;border-radius: 2px;border: none;
-    padding: 5px;
+    background-color: #fa8080;
+    border-radius: 5px;border: none;
+    padding: 2px;
 }
 
 .greenDot{

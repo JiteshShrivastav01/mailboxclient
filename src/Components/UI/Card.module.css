@@ -1,11 +1,3 @@
-.card{
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 2rem;
-  padding: 1rem;
-}
 
 .card1{
   background-color: #fa8080;
@@ -15,3 +7,5 @@
   margin: 1rem;
   padding: 1rem;
 }
+
+

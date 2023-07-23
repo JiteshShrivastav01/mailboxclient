@@ -3,6 +3,7 @@ import Card from '../UI/Card'
 import Card1 from '../UI/Card1'
 import AuthContext from '../../Context/AuthContext'
 import classes from './Inbox.module.css'
+import { GoDotFill } from 'react-icons/go'
 
 const Sent=(props)=>{
     const [sent,setSent]=useState([])
@@ -20,6 +21,27 @@ const Sent=(props)=>{
       }
     }
 
+    const readHandler = async (mail) => {
+      console.log(mail.Message);
+      const updatedMail = { ...mail, isRead: true };
+      console.log(updatedMail);
+      try {
+        const res = await fetch(`https://mailboxclient-5c2d5-default-rtdb.firebaseio.com/user/${Email}/sent/${mail.id}.json`, {
+          method: 'PUT',
+          body: JSON.stringify(updatedMail),
+        });
+    
+        if (!res.ok) {
+          console.log('Failed to update mail status.');
+          return;
+        }
+    
+      } 
+      catch(err) {
+        console.log(err);
+      }
+    };
+
     useEffect(()=>{
         const fetchInbox=async ()=>{
           try{
@@ -36,7 +58,8 @@ const Sent=(props)=>{
                     id:key,
                     To : data[key].To,
                     Subject : data[key].Subject,
-                    Message : data[key].message
+                    Message : data[key].Message,
+                    isRead : data[key].isRead
                 })
             }
             setSent(loader)
@@ -46,7 +69,7 @@ const Sent=(props)=>{
           }
         }
         fetchInbox()
-      },[Email])
+      },[Email,deleteHandler,readHandler])
     
       useEffect(()=>{
         props.sentlength(sent.length)
@@ -63,8 +86,10 @@ const Sent=(props)=>{
           { 
             sent.map((sent)=>(
                 <Card>
+                  <div onClick={()=>readHandler(sent)}>
                   <div className={classes.p}>
                     <p className={classes.p1}>
+                    {!sent.isRead && <span className={classes.greenDot}><GoDotFill/></span>}
                         <span className={classes.bold}>To :</span> {sent.To}
                     </p>
                     <p className={classes.p2}>
@@ -74,6 +99,7 @@ const Sent=(props)=>{
                   </div> 
                   <hr />
                   <p className={classes.p3}>{sent.Message}</p>
+                  </div>
                 </Card>
             ))
           }

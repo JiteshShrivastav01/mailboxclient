@@ -3,6 +3,7 @@ import Card from '../UI/Card'
 import Card1 from '../UI/Card1'
 import AuthContext from '../../Context/AuthContext'
 import classes from './Inbox.module.css'
+import {GoDotFill} from 'react-icons/go'
 
 const Inbox=(props)=>{
     const [inbox,setInbox]=useState([])
@@ -20,6 +21,28 @@ const Inbox=(props)=>{
       }
     }
 
+    const readHandler = async (mail) => {
+      console.log(mail);
+      const updatedMail = { ...mail,isRead: true };
+      console.log(updatedMail);
+      try {
+        const res = await fetch(`https://mailboxclient-5c2d5-default-rtdb.firebaseio.com/user/${Email}/inbox/${mail.id}.json`, {
+          method: 'PUT',
+          body: JSON.stringify(updatedMail),
+        });
+    
+        if (!res.ok) {
+          console.log('Failed to update mail status.');
+          return;
+        }
+    
+      } 
+      catch(err) {
+        console.log(err);
+      }
+    };
+    
+
     useEffect(()=>{
         const fetchInbox=async ()=>{
           try{
@@ -36,7 +59,8 @@ const Inbox=(props)=>{
                     id:key,
                     From : data[key].From,
                     Subject : data[key].Subject,
-                    Message : data[key].message
+                    Message : data[key].Message,
+                    isRead:data[key].isRead
                 })
             }
             setInbox(loader)
@@ -52,6 +76,7 @@ const Inbox=(props)=>{
         props.inboxlength(inbox.length)
     },[inbox,deleteHandler])
 
+
     return(
        <Card1>
           {
@@ -61,19 +86,22 @@ const Inbox=(props)=>{
             inbox.length>0 && <h2 className={classes.h2}>Inbox</h2>
           }
           { inbox.length>0 &&
-            inbox.map((inbox)=>(
+            inbox.map((mail)=>(
                 <Card>
+                  <div onClick={()=>readHandler(mail)}>
                   <div className={classes.p}>
                     <p className={classes.p1}>
-                        <span className={classes.bold}>From :</span> {inbox.From}
+                    {!mail.isRead && <span className={classes.greenDot}><GoDotFill/></span>}
+                        <span className={classes.bold}>From :</span> {mail.From}
                     </p>
                     <p className={classes.p2}>
-                        <span className={classes.bold}>Subject : </span>{inbox.Subject}
+                        <span className={classes.bold}>Subject : </span>{mail.Subject}
                     </p>
-                    <button className={classes.delete} onClick={()=>deleteHandler(inbox)}>X</button>
+                    <button className={classes.delete} onClick={()=>deleteHandler(mail)}>X</button>
                   </div> 
                   <hr />
-                  <p className={classes.p3}>{inbox.Message}</p>
+                  <p className={classes.p3}>{mail.Message}</p>
+                  </div>
                 </Card>
             ))
           }

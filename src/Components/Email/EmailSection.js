@@ -19,7 +19,7 @@ const EmailSection = () => {
     try{
         const res=await fetch(`https://mailboxclient-5c2d5-default-rtdb.firebaseio.com/user/${recipient}/inbox.json`,{
           method:'POST',
-          body:JSON.stringify({From : sender ,Subject : subject , message : emailContent}),
+          body:JSON.stringify({From : sender ,Subject : subject , Message : emailContent , isRead : false}),
           headers:{
             'Content-Type' : 'application.json'
           }
@@ -28,7 +28,7 @@ const EmailSection = () => {
 
         const res2=await fetch(`https://mailboxclient-5c2d5-default-rtdb.firebaseio.com/user/${senderEmail}/sent.json`,{
         method:'POST',
-        body:JSON.stringify({To : recipientEmail ,Subject : subject , message : emailContent}),
+        body:JSON.stringify({To : recipientEmail ,Subject : subject , Message : emailContent}),
         headers:{
           'Content-Type' : 'application.json'
         }
